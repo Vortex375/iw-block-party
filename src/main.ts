@@ -1,6 +1,7 @@
 /* BlockParty script */
 
 import { BlockPartySource } from "./modules/block-party-source"
+import { BlockPartySink } from "./modules/block-party-sink"
 import { DeepstreamClient } from "iw-base/dist/modules/deepstream-client"
 import { UdpDiscovery } from "iw-base/dist/modules/udp-discovery"
 
@@ -51,7 +52,12 @@ if (argv["source"]) {
   client.on("disconnected", () => source.stop())
   
 } else if (argv["sink"]) {
-
+  const sink = new BlockPartySink(client)
+  
+    client.on("connected", () => sink.start({
+      dsPath: argv["sink"]
+    }))
+    client.on("disconnected", () => sink.stop())
 } else {
   console.log("Please give either --source or --sink option")
   process.exit(1)
