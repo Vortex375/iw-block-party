@@ -1,0 +1,34 @@
+{
+  "name": "iw-block-party",
+  "version": "0.0.1",
+  "description": "iw block party module",
+  "author": "Benjamin Schmitz",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vortex375/iw-block-party.git"
+  },
+  "scripts": {
+    "start": "npm run build && npm run watch",
+    "build": "npm run build-ts && npm run tslint && npm run copy-static-assets",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\"",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
+  },
+  "dependencies": {
+    "deepstream.io-client-js": "^2.2.1",
+    "lodash": "^4.17.4",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/bunyan": "1.8.3",
+    "@types/lodash": "^4.14.68",
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^8.0.46",
+    "concurrently": "^3.5.0",
+    "shelljs": "^0.7.7",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.1"
+  }
+}
