@@ -12,10 +12,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5Core REQUIRED)
-find_package(GStreamer REQUIRED)
 
-pkg_check_modules(GLIB glib-2.0)
-pkg_check_modules(GOBJECT gobject-2.0)
+pkg_check_modules(GLIB REQUIRED glib-2.0)
+pkg_check_modules(GOBJECT REQUIRED gobject-2.0)
+pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0>=1.4)
 
 set(gsthelper_SRCS
     src/reader.cpp
