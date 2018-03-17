@@ -1,4 +1,4 @@
-/* Serial Port Interface to Light Control Arduino Device */
+/* BlockParty Audio Sink (Playback) */
 
 /// <reference types="deepstream.io-client-js" />
 

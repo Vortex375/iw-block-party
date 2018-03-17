@@ -14,21 +14,8 @@ const RTCP_PORT_DEFAULT = 56000
 const argv = minimist(process.argv.slice(2))
 
 const client = new DeepstreamClient()
-const discovery = new UdpDiscovery()
-
-client.on("connected", () => discovery.pause())
-client.on("disconnected", () => discovery.resume())
-discovery.on("discovered", (addr) => {
-  discovery.pause()
-  client.start({
-    url: `${addr.address}:${addr.port}`,
-    friendlyName: "block-party-" + (argv["source"] ? "source" : "sink")
-  })
-})
-
-discovery.start({
-  port: 6030
-})
+const discovery = new UdpDiscovery(client)
+discovery.start()
 
 if (argv._.length < 1) {
   argv._.push(MULTICAST_GROUP_DEFAULT)
@@ -50,6 +37,8 @@ if (argv["source"]) {
     rtcpPort: parseInt(argv._[2])
   }))
   client.on("disconnected", () => source.stop())
+
+  discovery.start()
   
 } else if (argv["sink"]) {
   const sink = new BlockPartySink(client)
@@ -58,6 +47,10 @@ if (argv["source"]) {
       dsPath: argv["sink"]
     }))
     client.on("disconnected", () => sink.stop())
+
+    discovery.start({
+      broadcastPort: argv["local"] ? 6032 : undefined
+    })
 } else {
   console.log("Please give either --source or --sink option")
   process.exit(1)
