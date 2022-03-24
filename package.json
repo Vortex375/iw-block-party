@@ -19,7 +19,7 @@
   "dependencies": {
     "deepstream.io-client-js": "^2.3.4",
     "lodash": "^4.17.15",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.6"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.8",
